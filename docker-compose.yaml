@@ -1,0 +1,20 @@
+---
+version: '3.7'
+
+services:
+ ### Minio
+ minio:
+    image: quay.io/minio/minio:RELEASE.2022-06-25T15-50-16Z
+    command: server --address ":9002" --console-address ":9003" /data
+    restart: on-failure
+    ports:
+      - 9003:9003
+      - 9002:9002
+    volumes:
+      - minio:/data:rw
+    depends_on:
+      - db
+
+volumes:
+  minio:
+    driver: local
